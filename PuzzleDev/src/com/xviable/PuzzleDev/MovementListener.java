@@ -3,6 +3,7 @@ package com.xviable.PuzzleDev;
 import java.util.ArrayList;
 
 import org.bukkit.entity.Entity;
+import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityInteractEvent;
 
@@ -20,6 +21,7 @@ public class MovementListener implements Listener {
 		this.jumpPads = jumpPads;
 	}
 
+	@EventHandler
 	public void onPlayerInteract(EntityInteractEvent event) {
 		Entity entity = event.getEntity();
 
