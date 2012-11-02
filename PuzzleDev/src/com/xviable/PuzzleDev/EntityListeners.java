@@ -63,9 +63,11 @@ public class EntityListeners implements Listener {
 								Diode diode = (Diode) b.getRelative(x, y, z).getState().getData();
 								BlockFace bf = diode.getFacing();
 								int delay = diode.getDelay();
+								Vector v1 = new Vector(0,0,0);
+								p.setVelocity(v1);
 								Vector v = new Vector(bf.getModX(), bf.getModY(), bf.getModZ());
 								v = v.multiply(1.5);
-								v.setX((delay + 1) / 2);
+								v.setY((delay + 1) / 2);
 								p.setVelocity(v);
 							}
 						}
