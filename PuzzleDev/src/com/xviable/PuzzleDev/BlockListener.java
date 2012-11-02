@@ -11,6 +11,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.material.Diode;
 
+//BlockListenComment? WORKS?
 public class BlockListener implements Listener {
 	private ArrayList<JumpPad> jumpPads;
 
