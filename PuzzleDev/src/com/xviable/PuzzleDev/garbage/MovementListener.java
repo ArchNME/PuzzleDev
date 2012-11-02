@@ -25,18 +25,18 @@ public class MovementListener implements Listener {
 		this.jumpPads = jumpPads;
 	}
 
-	@EventHandler
-	public void onPlayerInteract(PlayerInteractEvent event) {
-		Player p = event.getPlayer();
-		System.out.println("Player Movement Detected : " + event.getAction());
-		if (event.getAction() == event.getAction().PHYSICAL) {
-			System.out.println("SUCCESS");
-			Vector v = p.getVelocity();
-			v.setY(0.5);
-			v.setX(v.getX()*0.5);
-			v.setZ(v.getZ()*0.5);
-			p.setVelocity(v);
-		}
+//	@EventHandler
+//	public void onPlayerInteract(PlayerInteractEvent event) {
+//		Player p = event.getPlayer();
+//		System.out.println("Player Movement Detected : " + event.getAction());
+//		if (event.getAction() == event.getAction().PHYSICAL) {
+//			System.out.println("SUCCESS");
+//			Vector v = p.getVelocity();
+//			v.setY(0.5);
+//			v.setX(v.getX()*0.5);
+//			v.setZ(v.getZ()*0.5);
+//			p.setVelocity(v);
+//		}
 		
 
 //		for (int i = 0; i < jumpPads.size(); i++) {

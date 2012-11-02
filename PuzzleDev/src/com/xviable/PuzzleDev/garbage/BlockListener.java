@@ -7,7 +7,6 @@ import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.material.Diode;
@@ -20,7 +19,6 @@ public class BlockListener implements Listener {
 		this.jumpPads = jumpPads;
 	}
 
-	@EventHandler
 	public void onBlockPlaced(BlockPlaceEvent event) {
 		Block block = event.getBlock();
 		Location blockLoc = block.getLocation();
@@ -31,7 +29,7 @@ public class BlockListener implements Listener {
 			System.out.println("Stone Plate Placed");
 			if (block.getRelative(BlockFace.DOWN).getType() == Material.OBSIDIAN) System.out.println("Obsidian Below Accepted");
 			for (BlockFace face : BlockFace.values()) {
-				if (block.getRelative(face).getTypeId() == 93 || block.getRelative(face).getTypeId() == 94) {
+				if (block.getRelative(face).getType() == Material.DIODE) {
 					System.out.println("Diode Face Accepted");
 					//Conditions met to create a jumpPad
 					Diode diode = (Diode) block.getRelative(face).getState().getData();
@@ -48,8 +46,7 @@ public class BlockListener implements Listener {
 			}
 		}
 		//If a redstone diode is placed, check around it for stone pressure plates on obsidian
-		if (block.getTypeId() == 93 || block.getTypeId() == 94) {
-			System.out.println("Diode Placed");
+		if (block.getType() == Material.DIODE) {
 			for (BlockFace face : BlockFace.values()) {
 				if (block.getRelative(face).getType() == Material.STONE_PLATE) {
 					if (block.getRelative(BlockFace.DOWN).getType() == Material.OBSIDIAN) {

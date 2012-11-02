@@ -4,15 +4,15 @@ import java.util.ArrayList;
 import java.util.logging.Logger;
 
 import org.bukkit.Bukkit;
+import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class PuzzleDev extends JavaPlugin {
 	//Listener Setup
-	public MovementListener ml;
-	public BlockListener bl;
+	public EntityListeners el;
 
-	private ArrayList<JumpPad> jumpPads;
+
 
 	public final Logger logger = Logger.getLogger("Minecraft");
 
@@ -23,12 +23,10 @@ public class PuzzleDev extends JavaPlugin {
 		PluginDescriptionFile pdfFile = getDescription();
 		this.logger.info(pdfFile.getName() + " version " + pdfFile.getVersion() + " has been enabled!");
 
-		bl = new BlockListener(jumpPads);
-		ml = new MovementListener(this);
+		el = new EntityListeners(this);
 
 		// Listeners
-		Bukkit.getPluginManager().registerEvents(ml, this);
-		Bukkit.getPluginManager().registerEvents(bl, this);
+		Bukkit.getPluginManager().registerEvents(el, this);
 
 		pluginOn = true;
 	}
@@ -36,6 +34,7 @@ public class PuzzleDev extends JavaPlugin {
 	public void onDisable() {
 		PluginDescriptionFile pdfFile = getDescription();
 		this.logger.info(pdfFile.getName() + " has been disabled!");
+		HandlerList.unregisterAll(el);
 
 		pluginOn = false;
 	}
