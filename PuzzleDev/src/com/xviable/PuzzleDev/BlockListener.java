@@ -34,15 +34,15 @@ public class BlockListener implements Listener {
 				if (block.getRelative(face).getTypeId() == 93 || block.getRelative(face).getTypeId() == 94) {
 					System.out.println("Diode Face Accepted");
 					//Conditions met to create a jumpPad
-					Diode diode = (Diode) block.getRelative(face).getState().getData();
+					Diode diode = (Diode) block.getRelative(face);
 					BlockFace bdir = diode.getFacing();
 					Location plateLoc = block.getLocation();
 					int power = diode.getDelay();
-//					for (int i = 0; i < jumpPads.size(); i++) {
-//						if (jumpPads.get(i).getLocation() == plateLoc) return;
-//					}
+					for (int i = 0; i < jumpPads.size(); i++) {
+						if (jumpPads.get(i).getLocation() == plateLoc) return;
+					}
 					System.out.println("Added new JumpPad");
-//					jumpPads.add(new JumpPad(plateLoc, bdir, power));
+					jumpPads.add(new JumpPad(plateLoc, bdir, power));
 					return;
 				}
 			}
