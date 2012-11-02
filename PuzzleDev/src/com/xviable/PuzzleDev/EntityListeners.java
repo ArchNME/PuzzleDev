@@ -66,8 +66,10 @@ public class EntityListeners implements Listener {
 								Vector v1 = new Vector(0,0,0);
 								p.setVelocity(v1);
 								Vector v = new Vector(bf.getModX(), bf.getModY(), bf.getModZ());
-								v = v.multiply(1.5);
-								v.setY((delay + 1) / 2);
+								v.setX(bf.getModX() * (delay/1.45));
+								v.setZ(bf.getModZ() * (delay/1.45));
+								v.setY(1);
+								System.out.println(delay);
 								p.setVelocity(v);
 							}
 						}
