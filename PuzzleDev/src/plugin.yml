@@ -1,0 +1,9 @@
+name: PuzzleDev
+main: com.xviable.PuzzleDev.PuzzleDev
+version: Alpha_001
+
+
+commands:
+  pd:
+    permission: PuzzleDev.pd
+    permission-message: You don't have access to <permission>.
