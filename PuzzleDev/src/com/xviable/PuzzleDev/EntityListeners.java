@@ -31,31 +31,6 @@ public class EntityListeners implements Listener {
 		this.plugin = plugin;
 	}
 
-	@EventHandler
-	public void onEntityInteract(EntityInteractEvent e) {
-		Entity entity = e.getEntity();
-		Block block = e.getBlock();
-
-		System.out.println("Player Movement Detected");
-
-//		if (event.getAction() == event.getAction().PHYSICAL && b.getType() == Material.STONE_PLATE) {
-//			for (int z = -1; z <= 1; z++) {
-//				for (int x = -1; x <= 1; x++) {
-//					for (int y = -1; y <= 1; y++) {
-//						if ((x * x + y * y + z * z == 1) && b.getRelative(x, y, z).getTypeId() == 94 || (x * x + y * y + z * z == 1) && b.getRelative(x, y, z).getTypeId() == 93) {
-//							System.out.println("Diode Found");
-//							Diode diode = (Diode) b.getRelative(x, y, z).getState().getData();
-//							BlockFace bf = diode.getFacing();
-//							Vector v = new Vector(bf.getModX(), bf.getModY(), bf.getModZ());
-//							v = v.multiply(1.5);
-//							v.setY((diode.getDelay() + 1) / 2);
-//							entity.setVelocity(v);
-//						}
-//					}
-//				}
-//			}
-//		}
-	}
 
 	@EventHandler
 	public void onPlayerInteract(PlayerInteractEvent event) {
@@ -87,6 +62,39 @@ public class EntityListeners implements Listener {
 			}
 		}
 	}
+	
+	@EventHandler
+	public void onEntityInteract(EntityInteractEvent event) {
+		Entity p = event.getEntity();
+		Block b = event.getBlock();
+		if (b.getType() == Material.STONE_PLATE) {
+			for (int z = -1; z <= 1; z++) {
+				for (int x = -1; x <= 1; x++) {
+					for (int y = -1; y <= 1; y++) {
+						if ((x * x + y * y + z * z == 1) && b.getRelative(x, y, z).getTypeId() == 94 || (x * x + y * y + z * z == 1) && b.getRelative(x, y, z).getTypeId() == 93) {
+							Location loc = b.getRelative(0,1,0).getLocation();
+							System.out.println(b.getRelative(0,1,0).getLocation());
+							Vector reset = new Vector(0,0,0);
+							p.setVelocity(reset);
+							Diode diode = (Diode) b.getRelative(x, y, z).getState().getData();
+							BlockFace bf = diode.getFacing();
+							int delay = diode.getDelay();
+							Vector v = new Vector(bf.getModX(), bf.getModY(), bf.getModZ());
+							v.setY(1);
+							p.setVelocity(v);
+							v.setX(bf.getModX() * (delay/1.5));
+							v.setZ(bf.getModZ() * (delay/1.5));
+							v.setY(1);
+							System.out.println(delay);
+							p.setVelocity(v);
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	
 	
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onPlayerInteractEntity(PlayerInteractEntityEvent event) {
