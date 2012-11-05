@@ -43,7 +43,7 @@ public class EntityListeners implements Listener {
 						for (int y = -1; y <= 1; y++) {
 							if ((x * x + y * y + z * z == 1) && b.getRelative(x, y, z).getTypeId() == 94 || (x * x + y * y + z * z == 1) && b.getRelative(x, y, z).getTypeId() == 93) {
 								Location loc = b.getRelative(0,1,0).getLocation();
-								System.out.println(b.getRelative(0,1,0).getLocation());
+//								System.out.println(b.getRelative(0,1,0).getLocation());
 								Vector reset = new Vector(0,0,0);
 								p.setVelocity(reset);
 								Diode diode = (Diode) b.getRelative(x, y, z).getState().getData();
@@ -53,7 +53,7 @@ public class EntityListeners implements Listener {
 								v.setX(bf.getModX() * (delay));
 								v.setZ(bf.getModZ() * (delay));
 								v.setY(1);
-								System.out.println(delay);
+//								System.out.println(delay);
 								p.setVelocity(v);
 							}
 						}
@@ -73,19 +73,18 @@ public class EntityListeners implements Listener {
 					for (int y = -1; y <= 1; y++) {
 						if ((x * x + y * y + z * z == 1) && b.getRelative(x, y, z).getTypeId() == 94 || (x * x + y * y + z * z == 1) && b.getRelative(x, y, z).getTypeId() == 93) {
 							Location loc = b.getRelative(0,1,0).getLocation();
-							System.out.println(b.getRelative(0,1,0).getLocation());
+//							System.out.println(b.getRelative(0,1,0).getLocation());
 							Vector reset = new Vector(0,0,0);
 							p.setVelocity(reset);
 							Diode diode = (Diode) b.getRelative(x, y, z).getState().getData();
 							BlockFace bf = diode.getFacing();
 							int delay = diode.getDelay();
 							Vector v = new Vector(bf.getModX(), bf.getModY(), bf.getModZ());
-							v.setY(1);
 							p.setVelocity(v);
 							v.setX(bf.getModX() * (delay/1.5));
 							v.setZ(bf.getModZ() * (delay/1.5));
 							v.setY(1);
-							System.out.println(delay);
+//							System.out.println(delay);
 							p.setVelocity(v);
 						}
 					}

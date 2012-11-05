@@ -11,6 +11,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class PuzzleDev extends JavaPlugin {
 	//Listener Setup
 	public EntityListeners el;
+	public BlockListeners bl;
 
 
 
@@ -24,9 +25,11 @@ public class PuzzleDev extends JavaPlugin {
 		this.logger.info(pdfFile.getName() + " version " + pdfFile.getVersion() + " has been enabled!");
 
 		el = new EntityListeners(this);
+		bl = new BlockListeners(this);
 
 		// Listeners
 		Bukkit.getPluginManager().registerEvents(el, this);
+		Bukkit.getPluginManager().registerEvents(bl, this);
 
 		pluginOn = true;
 	}
