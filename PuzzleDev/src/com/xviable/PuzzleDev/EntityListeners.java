@@ -36,70 +36,25 @@ public class EntityListeners implements Listener {
 	public void onPlayerInteract(PlayerInteractEvent event) {
 		Player p = event.getPlayer();
 		
-		if (event.getAction() == event.getAction().RIGHT_CLICK_BLOCK) {
+		if (event.getAction() == event.getAction().RIGHT_CLICK_BLOCK && p.getItemInHand().getTypeId() == 280) {
 			Block b = event.getClickedBlock();
-			if (b.getType() == Material.GRAVEL) {
-				BlockFace bf = event.getBlockFace();
-				BlockFace obf = event.getBlockFace().getOppositeFace();
+			BlockFace bf = event.getBlockFace();
+			BlockFace obf = event.getBlockFace().getOppositeFace();
+			
+			if (b.getType() == Material.SAND && obf != BlockFace.DOWN) {
+				
+				Location loc = b.getLocation();
+				World w = b.getWorld();
 				
 				int faceX = obf.getModX();
 				int faceZ = obf.getModZ();
 				
-				ArrayList<Integer> A = new ArrayList<Integer>();
-				ArrayList<Integer> U = new ArrayList<Integer>();
+				b.setTypeId(0);
 				
-				for (int xda = 0; xda <= 7; xda++) {
-						A.add(b.getRelative(((faceX * xda) + faceX), 0, ((faceZ * xda)) + faceZ).getTypeId());
-				}
-				for (int xda = 0; xda <= 7; xda++) {
-					U.add(b.getRelative(((faceX * xda) + faceX), 0, ((faceZ * xda)) + faceZ).getRelative(BlockFace.DOWN).getTypeId());
-				}
+				Entity sand = w.spawnFallingBlock(loc, Material.SAND, (byte) 0);
+				Vector v = new Vector((faceX * 1.2), .2, (faceZ * 1.2));
+				sand.setVelocity(v);
 				
-				if (A.get(0) != 0) {
-					return;
-				}
-				
-				if (A.get(7) + A.get(6) + A.get(5) + A.get(4) + A.get(3) + A.get(2) + A.get(1) == 0 && U.get(6) != 0 &&  U.get(5) != 0 && U.get(4) != 0 && U.get(3) != 0 && U.get(2) != 0 && U.get(1) != 0 && U.get(0) != 0) {
-					b.setTypeId(0);
-					b.getRelative(((faceX * 7) + faceX), 0, ((faceZ * 7)) + faceZ).setType(Material.GRAVEL);
-					return;
-				}
-				
-				if (A.get(6) == 0 && A.get(5) == 0 && A.get(4) == 0 && A.get(3) == 0 && A.get(2) == 0 && A.get(1) == 0 && U.get(5) != 0 && U.get(4) != 0 && U.get(3) != 0 && U.get(2) != 0 && U.get(1) != 0 && U.get(0) != 0) {
-					b.setTypeId(0);
-					b.getRelative(((faceX * 6) + faceX), 0, ((faceZ * 6)) + faceZ).setType(Material.GRAVEL);
-					return;
-				}
-				if (A.get(5) == 0 && A.get(4) == 0 && A.get(3) == 0 && A.get(2) == 0 && A.get(1) == 0 && U.get(4) != 0 && U.get(3) != 0 && U.get(2) != 0 && U.get(1) != 0 && U.get(0) != 0) {
-					b.setTypeId(0);
-					b.getRelative(((faceX * 5) + faceX), 0, ((faceZ * 5)) + faceZ).setType(Material.GRAVEL);
-					return;
-				}
-				if (A.get(4) == 0 && A.get(3) == 0 && A.get(2) == 0 && A.get(1) == 0 && U.get(3) != 0 && U.get(2) != 0 && U.get(1) != 0 && U.get(0) != 0) {
-					b.setTypeId(0);
-					b.getRelative(((faceX * 4) + faceX), 0, ((faceZ * 4)) + faceZ).setType(Material.GRAVEL);
-					return;
-				}
-				if (A.get(3) == 0 && A.get(2) == 0 && A.get(1) == 0 && U.get(2) != 0 && U.get(1) != 0 && U.get(0) != 0) {
-					b.setTypeId(0);
-					b.getRelative(((faceX * 3) + faceX), 0, ((faceZ * 3)) + faceZ).setType(Material.GRAVEL);
-					return;
-				}
-				if (A.get(2) == 0 && A.get(1) == 0 && U.get(1) != 0 && U.get(0) != 0) {
-					b.setTypeId(0);
-					b.getRelative(((faceX * 2) + faceX), 0, ((faceZ * 2)) + faceZ).setType(Material.GRAVEL);
-					return;
-				}
-				if (A.get(1) == 0 && U.get(0) != 0) {
-					b.setTypeId(0);
-					b.getRelative(((faceX * 1) + faceX), 0, ((faceZ * 1)) + faceZ).setType(Material.GRAVEL);
-					return;
-				}
-				if (A.get(0) == 0) {
-					b.setTypeId(0);
-					b.getRelative(((faceX * 0) + faceX), 0, ((faceZ * 0)) + faceZ).setType(Material.GRAVEL);
-					return;
-				}
 			}
 		}
 		
