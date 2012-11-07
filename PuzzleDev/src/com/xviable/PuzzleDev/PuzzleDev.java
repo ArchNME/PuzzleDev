@@ -1,7 +1,10 @@
 package com.xviable.PuzzleDev;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.logging.Logger;
+
+import net.minecraft.server.EntityTypes;
 
 import org.bukkit.Bukkit;
 import org.bukkit.event.HandlerList;
@@ -32,6 +35,32 @@ public class PuzzleDev extends JavaPlugin {
 		Bukkit.getPluginManager().registerEvents(bl, this);
 
 		pluginOn = true;
+		
+		// Sand Entities;
+		
+		try
+	    {
+	      Class[] args = new Class[3];
+	      args[0] = Class.class;
+	      args[1] = String.class;
+	      args[2] = Integer.TYPE;
+
+	      Method a = EntityTypes.class.getDeclaredMethod("a", args);
+	      a.setAccessible(true);
+
+	      a.invoke(a, new Object[] { EntityPushedSand.class, "PushedSand", Integer.valueOf(21) });
+	    }
+	    catch (Exception e)
+	    {
+	      e.printStackTrace();
+	      System.out.println("Error while registering PushSand entity.");
+	      setEnabled(false);
+	      return;
+	    }
+
+		
+		
+		
 	}
 
 	public void onDisable() {
