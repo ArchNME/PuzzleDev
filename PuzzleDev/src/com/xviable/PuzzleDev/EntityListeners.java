@@ -1,6 +1,7 @@
 package com.xviable.PuzzleDev;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.bukkit.Chunk;
 import org.bukkit.Location;
@@ -20,6 +21,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityInteractEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.material.Diode;
 import org.bukkit.util.Vector;
 
@@ -31,7 +33,7 @@ public class EntityListeners implements Listener {
 		this.plugin = plugin;
 	}
 
-
+	//Player Right Click Interact Sand
 	@EventHandler
 	public void onPlayerInteract(PlayerInteractEvent event) {
 		Player p = event.getPlayer();
@@ -58,7 +60,7 @@ public class EntityListeners implements Listener {
 			}
 		}
 		
-		
+		//Player Plate Interact
 		if (event.getAction() == event.getAction().PHYSICAL) {
 		Block b = event.getClickedBlock();
 		if (b.getType() == Material.STONE_PLATE) {
@@ -98,7 +100,7 @@ public class EntityListeners implements Listener {
 		}
 		}
 
-	
+	//Entity Plate Interact
 	@EventHandler
 	public void onEntityInteract(EntityInteractEvent event) {
 		Block b = event.getBlock();
@@ -130,7 +132,7 @@ public class EntityListeners implements Listener {
 	}
 	
 	
-	
+	//Player Entity Interact
 	@EventHandler
 	public void onPlayerInteractEntity(PlayerInteractEntityEvent event) {
 	Player player = event.getPlayer();
@@ -150,6 +152,50 @@ public class EntityListeners implements Listener {
 	} else if (target instanceof CraftSquid) {
 	player.setPassenger(target);
 	}
+	}
+	
+	
+	@EventHandler
+	public void onPlayerMove(PlayerMoveEvent event) {
+		
+		Player p = event.getPlayer();
+		Location loc = p.getLocation();
+		loc.setY(loc.getY() - 1);
+		
+		Block b = loc.getBlock();
+		
+		Location to = event.getTo();
+		Location from = event.getFrom();
+		double toZ = to.getZ();
+		double toX = to.getX();
+		double fromZ = from.getZ();
+		double fromX = from.getX();
+		
+		if (b.getTypeId() == 80) {
+			p.setWalkSpeed((float) 0.5);
+		}
+		if (b.getTypeId() != 80) {
+			p.setWalkSpeed((float) 0.4);
+		}
+		
+		if (b.getTypeId() == 80 && toZ - fromZ != 0 || b.getTypeId() == 80 && toX - fromX != 0) {
+			
+			 double vx = (to.getX() - from.getX()) / 1; // Divide by amount of seconds between locations.
+			 double vy = (to.getY() - from.getY()) / 1;
+			 double vz = (to.getZ() - from.getZ()) / 1;
+			 Vector velocity = new Vector(vx,vy,vz);
+			 velocity.setX((velocity.getX() * 1.5));
+			 velocity.setZ((velocity.getZ() * 1.5));
+			 velocity.setY((velocity.getY() * 1.25));
+			 p.setVelocity(velocity);
+		}
+		
+		
+		
+		
+		
+		
+		
 	}
 
 
