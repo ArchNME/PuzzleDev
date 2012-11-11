@@ -54,7 +54,7 @@ public class EntityListeners implements Listener {
 				b.setTypeId(0);
 				
 				Entity sand = w.spawnFallingBlock(loc, Material.SAND, (byte) 0);
-				Vector v = new Vector((faceX * 1.2), .2, (faceZ * 1.2));
+				Vector v = new Vector((faceX * 1.5), .2, (faceZ * 1.5));
 				sand.setVelocity(v);
 				
 			}
@@ -175,7 +175,7 @@ public class EntityListeners implements Listener {
 			p.setWalkSpeed((float) 0.5);
 		}
 		if (b.getTypeId() != 80) {
-			p.setWalkSpeed((float) 0.4);
+			p.setWalkSpeed((float) 0.2);
 		}
 		
 		if (b.getTypeId() == 80 && toZ - fromZ != 0 || b.getTypeId() == 80 && toX - fromX != 0) {

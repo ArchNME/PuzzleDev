@@ -39,9 +39,9 @@ public class EntityPushedSand extends EntityFallingBlock {
 
 	    this.motY -= 0.03999999910593033D;
 	    move(this.motX, this.motY, this.motZ);
-	    this.motX *= 0.9900000190734863D;
+	    this.motX *= 0.99D;
 	    this.motY *= 0.9800000190734863D;
-	    this.motZ *= 0.9900000190734863D;
+	    this.motZ *= 0.99D;
 
 	    if (!this.world.isStatic) {
 	      int i = MathHelper.floor(this.locX);
@@ -56,7 +56,7 @@ public class EntityPushedSand extends EntityFallingBlock {
 	        }
 	      }
 
-	      if (this.onGround && motX < .1 && motZ < .1) {
+	      if (this.onGround && motX < .0001 && motZ < .0001) {
 	        this.motX *= 0.699999988079071D;
 	        this.motZ *= 0.699999988079071D;
 	        this.motY *= -0.5D;
