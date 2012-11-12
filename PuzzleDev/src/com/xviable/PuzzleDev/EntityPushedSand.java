@@ -60,6 +60,7 @@ public class EntityPushedSand extends EntityFallingBlock {
 	        this.motX *= 0.699999988079071D;
 	        this.motZ *= 0.699999988079071D;
 	        this.motY *= -0.5D;
+	        
 
 	        if (this.world.getTypeId(i, j, k) != Block.PISTON_MOVING.id) {
 	          die();

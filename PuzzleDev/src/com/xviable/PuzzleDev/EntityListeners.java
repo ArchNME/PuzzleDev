@@ -28,6 +28,8 @@ import org.bukkit.util.Vector;
 public class EntityListeners implements Listener {
 
 	private PuzzleDev plugin;
+	
+	private HashMap<String, Vector> playerLocs = new HashMap<String, Vector>();
 
 	public EntityListeners(PuzzleDev plugin) {
 		this.plugin = plugin;
@@ -158,37 +160,77 @@ public class EntityListeners implements Listener {
 	@EventHandler
 	public void onPlayerMove(PlayerMoveEvent event) {
 		
+		Boolean bounce = false;
+		
 		Player p = event.getPlayer();
 		Location loc = p.getLocation();
-		loc.setY(loc.getY() - 1);
+		Vector pdir = loc.getDirection();
 		
 		Block b = loc.getBlock();
+		Block bu = b.getRelative(BlockFace.DOWN);
 		
-		Location to = event.getTo();
-		Location from = event.getFrom();
-		double toZ = to.getZ();
-		double toX = to.getX();
-		double fromZ = from.getZ();
-		double fromX = from.getX();
-		
-		if (b.getTypeId() == 80) {
-			p.setWalkSpeed((float) 0.5);
+		//bouncer test
+		if (bounce == true) {
+			for (int z = -1; z <= 1; z++) {
+				for (int x = -1; x <= 1; x++) {
+					for (int y = 0; y <= 1; y++) {
+						if (b.getRelative(x, y, z).getTypeId() == 20) {
+							Location bounceLoc = b.getRelative(x, y, z).getLocation();
+							Vector bounceVec = new Vector((-x)*2,(-y)*2,(-z)*2);
+							p.setVelocity(bounceVec);
+						}
+						
+					}
+				}
+			}
+			
 		}
-		if (b.getTypeId() != 80) {
+		
+		loc.setY(loc.getY() - 1);
+		
+		String pname = p.getName().toLowerCase();
+		
+		if (!playerLocs.containsKey(pname)) {
+			playerLocs.put(pname, pdir);
+		}
+		
+		if (b.getTypeId() == 80 || bu.getTypeId() == 80) {
+			p.setWalkSpeed((float) 0.4);
+		}
+		if (b.getTypeId() != 80 && bu.getTypeId() != 80) {
 			p.setWalkSpeed((float) 0.2);
 		}
 		
-		if (b.getTypeId() == 80 && toZ - fromZ != 0 || b.getTypeId() == 80 && toX - fromX != 0) {
+		if (playerLocs.containsKey(pname)) {
 			
-			 double vx = (to.getX() - from.getX()) / 1; // Divide by amount of seconds between locations.
-			 double vy = (to.getY() - from.getY()) / 1;
-			 double vz = (to.getZ() - from.getZ()) / 1;
-			 Vector velocity = new Vector(vx,vy,vz);
-			 velocity.setX((velocity.getX() * 1.5));
-			 velocity.setZ((velocity.getZ() * 1.5));
-			 velocity.setY((velocity.getY() * 1.25));
-			 p.setVelocity(velocity);
+			Vector psDir = playerLocs.get(pname);
+			
+			if (b.getTypeId() == 80 || bu.getTypeId() == 80) {
+//				if (psDir.getY() > .09) {
+//					psDir.setY(.09); //Slight Flight = .09 to .1;
+//				}
+				psDir.setY(0);
+				p.setVelocity(psDir);
+				psDir.multiply(1.01);
+			}
+			
+			if (b.getTypeId() != 80 && bu.getTypeId() != 80) {
+				playerLocs.remove(pname);
+			}
+			
 		}
+		
+//*		if (b.getTypeId() == 80 && toZ - fromZ != 0 || b.getTypeId() == 80 && toX - fromX != 0) {
+//*			
+//*			 double vx = (to.getX() - from.getX()) / 1; // Divide by amount of seconds between locations.
+//*			 double vy = (to.getY() - from.getY()) / 1;
+//*			 double vz = (to.getZ() - from.getZ()) / 1;
+//*			 Vector velocity = new Vector(vx,vy,vz);
+//*			 velocity.setX((velocity.getX() * 1.5));
+//*			 velocity.setZ((velocity.getZ() * 1.5));
+//*			 velocity.setY((velocity.getY() * 1.25));
+//*			 p.setVelocity(velocity);
+//*		}
 		
 		
 		
