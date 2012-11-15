@@ -2,11 +2,13 @@ package com.xviable.PuzzleDev;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.logging.Logger;
 
 import net.minecraft.server.EntityTypes;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -15,7 +17,6 @@ public class PuzzleDev extends JavaPlugin {
 	//Listener Setup
 	public EntityListeners el;
 	public BlockListeners bl;
-
 
 
 	public final Logger logger = Logger.getLogger("Minecraft");

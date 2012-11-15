@@ -53,11 +53,17 @@ public class EntityListeners implements Listener {
 				int faceX = obf.getModX();
 				int faceZ = obf.getModZ();
 				
-				b.setTypeId(0);
+				Block relDirB = b.getRelative(faceX, 0, faceZ);
 				
-				Entity sand = w.spawnFallingBlock(loc, Material.SAND, (byte) 0);
-				Vector v = new Vector((faceX * 1.5), .2, (faceZ * 1.5));
-				sand.setVelocity(v);
+				if (relDirB.getTypeId() == 0 || relDirB.getTypeId() == 8 || relDirB.getTypeId() == 9 || relDirB.getTypeId() == 10 || relDirB.getTypeId() == 11) {
+					b.setTypeId(0);
+					
+					Entity sand = w.spawnFallingBlock(loc, Material.SAND, (byte) 0);
+					Vector v = new Vector((faceX * 1.1), .25, (faceZ * 1.1));
+					sand.setVelocity(v);
+				}
+				
+				
 				
 			}
 		}
@@ -160,7 +166,7 @@ public class EntityListeners implements Listener {
 	@EventHandler
 	public void onPlayerMove(PlayerMoveEvent event) {
 		
-		Boolean bounce = false;
+		Boolean bounce = true;
 		
 		Player p = event.getPlayer();
 		Location loc = p.getLocation();
@@ -195,7 +201,7 @@ public class EntityListeners implements Listener {
 		}
 		
 		if (b.getTypeId() == 80 || bu.getTypeId() == 80) {
-			p.setWalkSpeed((float) 0.4);
+			p.setWalkSpeed((float) 0.3);
 		}
 		if (b.getTypeId() != 80 && bu.getTypeId() != 80) {
 			p.setWalkSpeed((float) 0.2);
@@ -206,12 +212,12 @@ public class EntityListeners implements Listener {
 			Vector psDir = playerLocs.get(pname);
 			
 			if (b.getTypeId() == 80 || bu.getTypeId() == 80) {
-//				if (psDir.getY() > .09) {
-//					psDir.setY(.09); //Slight Flight = .09 to .1;
+//				if (psDir.getY() > .1) {
+//					psDir.setY(.1); //Slight Flight = .09 to .1;
 //				}
 				psDir.setY(0);
 				p.setVelocity(psDir);
-				psDir.multiply(1.01);
+				psDir.multiply(1.04);
 			}
 			
 			if (b.getTypeId() != 80 && bu.getTypeId() != 80) {
